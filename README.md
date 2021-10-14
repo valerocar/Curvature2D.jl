@@ -4,7 +4,7 @@ This Julia-Dash App constructs a curve with a given curvature function.
 
 ![Curve from curvature](Curvature.gif)
 
-You can execute the app from the Julia REPL by typing
+You can run the app from the Julia REPL by typing
 
 ```
 julia> using Pkg
