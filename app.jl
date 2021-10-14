@@ -1,5 +1,6 @@
 using Pkg
 Pkg.activate(".")
+
 using PlotlyJS
 using Dash
 
@@ -29,17 +30,20 @@ end
 
 # Parametric models for curvature function
 linear = ParametricModel("Linear Model", (a,b)->"$a*s+$b", ["a","b"])
-quadratic = ParametricModel("Quadratic Model", (a,b,c)->"$a*s^2 + $b*s+$c", ["a","b","c"])
-periodic = ParametricModel("Periodic Model", (a,b,ω)->"$a*($b - cos($ω*s))", ["a","b","ω"])
+quadratic = ParametricModel("Quadratic Model", (a,b,c)->"$a*s^2+$b*s+$c", ["a","b","c"])
+cubic = ParametricModel("Cubic Model", (a,b,c,d)->"$a*s^3+$b*s^2+$c*s+$d", ["a","b","c","d"])
+periodic = ParametricModel("Periodic Model", (a,b,ω)->"$a*($b-cos($ω*s))", ["a","b","ω"])
 
 # Examples
 mpi = 3.1416 
 
 examples_list = [
-    Example("Circle", linear, [0.0,1.0], -mpi, mpi, 250)
-    Example("Spiral", linear, [1.0,0.0], -5,5, 300)
-    Example("Hat", quadratic, [1.0,0.0,1.0],-5,5,500)
-    Example("Periodic", periodic,[1.4142,1.0,1.0],-5*mpi,5*mpi,1000 )
+    Example("Circle", linear, [0.0,1.0], -mpi, mpi, 250),
+    Example("Double Spiral", linear, [1.0,0.0], -5,5, 300),
+    Example("Hair", quadratic, [1.0,0.0,1.0],-5,5,500),
+    Example("Periodic", periodic,[1.4142,1.0,1.0],-5*mpi,5*mpi,1000 ),
+    Example("Cross", periodic,[7/4,1.0,1.0],-5*mpi,5*mpi,1000 ),
+    Example("Snail", cubic,[1.0,0.0,0.0,2.0],-2.5,2.5,500 )
 ]
 examples = Dict(e.name => e for e in examples_list)
 default_example = examples["Circle"]
@@ -123,7 +127,6 @@ inputs =html_div([
     html_break(1)
     ]))])
  
-
 dropdown = html_div(style=Dict("width"=>"250px"), dcc_dropdown(id="examples", options=[(label = e.name, value = e.name) for e in values(examples)], value=default_example.name))
 
 function to_info(e::Example)
