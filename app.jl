@@ -110,8 +110,8 @@ info = html_div([
 sol_plot = plot_solution(sol)
 κ_plot = plot_κ(CurveData(default_example))
 
-curve_graph = dcc_graph(id="curve_graph",figure=sol_plot)
-κ_graph = dcc_graph(id="κ_graph",figure=κ_plot)
+curve_graph = dcc_loading([dcc_graph(id="curve_graph",figure=sol_plot)])
+κ_graph = dcc_loading([dcc_graph(id="κ_graph",figure=κ_plot)])
 main_graph = row_div([κ_graph,curve_graph])
 
 
