@@ -14,3 +14,5 @@ julia> include("app.jl")
 ```
 
 and then opening your browser at http://localhost:8050/
+
+For a Heroku deployment of this App visit https://curvature-dash-app.herokuapp.com/
